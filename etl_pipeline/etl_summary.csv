@@ -1,0 +1,10 @@
+stage,timestamp,source,rows,columns,col_names,file_size,duration_s,before,after,removed,no_show_rows,disease_rows,merged_rows,total_cols,final_rows,final_cols,issues,database,rows_loaded,status
+EXTRACT,2026-06-10T07:20:42.888817,No-Show Appointments,110527.0,14.0,"['PatientId', 'AppointmentID', 'Gender', 'ScheduledDay', 'AppointmentDay', 'Age', 'Neighbourhood', 'Scholarship', 'Hipertension', 'Diabetes', 'Alcoholism', 'Handcap', 'SMS_received', 'No-show']",10811.6 KB,0.6,,,,,,,,,,,,,
+EXTRACT,2026-06-10T07:20:42.896274,Disease Symptoms,349.0,10.0,"['Disease', 'Fever', 'Cough', 'Fatigue', 'Difficulty Breathing', 'Age', 'Gender', 'Blood Pressure', 'Cholesterol Level', 'Outcome Variable']",20.0 KB,0.01,,,,,,,,,,,,,
+CLEAN_NO_SHOW,2026-06-10T07:20:43.125306,,,,,,,110527.0,110521.0,6.0,,,,,,,,,,
+CLEAN_DISEASE,2026-06-10T07:20:43.131312,,,,,,,349.0,300.0,49.0,,,,,,,,,,
+STANDARDIZE_NO_SHOW,2026-06-10T07:20:43.209330,,110521.0,,,,,,,,,,,,,,,,,
+STANDARDIZE_DISEASE,2026-06-10T07:20:43.214834,,300.0,,,,,,,,,,,,,,,,,
+ENRICHMENT,2026-06-10T07:20:43.292862,,,,,,,,,,110521.0,300.0,110821.0,17.0,,,,,,
+VALIDATION,2026-06-10T07:20:43.357426,,,,,,,,,,,,,,110821.0,17.0,"[""Null check: 45 null di 'age'"", ""Distribusi source: {'no_show': 0.9973, 'disease': 0.0027}""]",,,
+LOAD,2026-06-10T07:20:53.180443,,,,,,9.04,,,,,,,,,,,C:\Users\Muhammad Aqsandy\bigdata_final_project\etl_pipeline\..\warehouse\warehouse.db,110821.0,SUCCESS

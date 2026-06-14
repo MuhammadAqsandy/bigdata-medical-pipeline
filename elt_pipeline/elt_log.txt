@@ -1,0 +1,113 @@
+2026-06-10 07:21:55,252 [INFO] === MULAI PIPELINE ELT - Big Data Medical ===
+2026-06-10 07:21:55,253 [INFO] === EXTRACT (RAW): No-Show Appointments ===
+2026-06-10 07:21:55,434 [INFO] [EXTRACT_RAW] {'source': 'No-Show Appointments', 'rows': 110527, 'columns': ['PatientId', 'AppointmentID', 'Gender', 'ScheduledDay', 'AppointmentDay', 'Age', 'Neighbourhood', 'Scholarship', 'Hipertension', 'Diabetes', 'Alcoholism', 'Handcap', 'SMS_received', 'No-show'], 'duration': 0.18}
+2026-06-10 07:21:55,435 [INFO] === EXTRACT (RAW): Disease Symptoms ===
+2026-06-10 07:21:55,438 [INFO] [EXTRACT_RAW] {'source': 'Disease Symptoms', 'rows': 349, 'columns': ['Disease', 'Fever', 'Cough', 'Fatigue', 'Difficulty Breathing', 'Age', 'Gender', 'Blood Pressure', 'Cholesterol Level', 'Outcome Variable'], 'duration': 0.0}
+2026-06-10 07:21:55,440 [INFO] === LOAD: Data Lake (staging area) ===
+2026-06-10 07:21:55,855 [INFO] [LOAD_DATALAKE] {'no_show_path': 'C:\\Users\\Muhammad Aqsandy\\bigdata_final_project\\elt_pipeline\\..\\datalake\\raw_no_show\\no_show_raw.csv', 'disease_path': 'C:\\Users\\Muhammad Aqsandy\\bigdata_final_project\\elt_pipeline\\..\\datalake\\raw_disease\\disease_raw.csv', 'no_show_rows': 110527, 'disease_rows': 349, 'duration': 0.41}
+2026-06-10 07:21:55,855 [INFO] === LOAD: Warehouse Staging Tables ===
+2026-06-10 07:21:56,367 [INFO] [LOAD_STAGING] {'database': 'C:\\Users\\Muhammad Aqsandy\\bigdata_final_project\\elt_pipeline\\..\\warehouse\\warehouse_elt.db', 'stg_no_show': 110527, 'stg_disease': 349, 'duration': 0.51}
+2026-06-10 07:21:56,367 [INFO] === TRANSFORM (in-warehouse SQL) ===
+2026-06-10 07:21:56,367 [INFO] -- Step 1: Tabel Dimensi --
+2026-06-10 07:21:56,485 [INFO] [TRANSFORM_DIM] {'status': 'dim_source, dim_outcome, dim_age_group created'}
+2026-06-10 07:21:56,485 [INFO] -- Step 2: Cleaning No-Show (SQL) --
+2026-06-10 07:21:56,486 [INFO] Kolom stg_no_show: ['PatientId', 'AppointmentID', 'Gender', 'ScheduledDay', 'AppointmentDay', 'Age', 'Neighbourhood', 'Scholarship', 'Hipertension', 'Diabetes', 'Alcoholism', 'Handcap', 'SMS_received', 'No-show']
+2026-06-10 07:21:57,015 [INFO] [TRANSFORM_CLEAN_NO_SHOW] {'rows_after_clean': 110526}
+2026-06-10 07:21:57,015 [INFO] -- Step 3: Cleaning Disease (SQL) --
+2026-06-10 07:21:57,015 [INFO] Kolom stg_disease: ['Disease', 'Fever', 'Cough', 'Fatigue', 'Difficulty Breathing', 'Age', 'Gender', 'Blood Pressure', 'Cholesterol Level', 'Outcome Variable']
+2026-06-10 07:21:57,041 [INFO] [TRANSFORM_CLEAN_DISEASE] {'rows_after_clean': 276}
+2026-06-10 07:21:57,041 [INFO] -- Step 4: Feature Engineering (SQL) --
+2026-06-10 07:21:57,593 [INFO] [TRANSFORM_ENRICHMENT] {'status': 'enriched_no_show & enriched_disease created'}
+2026-06-10 07:21:57,594 [INFO] -- Step 5: Buat fact_medical_elt --
+2026-06-10 07:21:57,963 [INFO] [TRANSFORM_FACT] {'fact_medical_elt_rows': 110802}
+2026-06-10 07:21:57,963 [INFO] -- Step 6: Validasi Kualitas (SQL) --
+2026-06-10 07:21:57,972 [INFO] 
+V1 Total baris fact:
+ total
+110802
+2026-06-10 07:21:57,991 [INFO] 
+V2 Null age:
+ null_age
+        0
+2026-06-10 07:21:58,009 [INFO] 
+V3 Age di luar [0,120]:
+ out_range
+         0
+2026-06-10 07:21:58,025 [INFO] 
+V4 Source tidak valid:
+ invalid
+       0
+2026-06-10 07:21:58,072 [INFO] 
+V5 Distribusi per source:
+source_name  total
+    disease    276
+    no_show 110526
+2026-06-10 07:21:58,128 [INFO] 
+V6 Distribusi outcome:
+     outcome_label  total
+No-Show / Negative  22454
+   Show / Positive  88348
+2026-06-10 07:21:58,128 [INFO] [TRANSFORM_VALIDATION] {'checks_run': 6}
+2026-06-10 07:21:58,128 [INFO] === 8 Query SQL Analitik ===
+2026-06-10 07:21:58,173 [INFO] 
+Q1 Total data per sumber:
+source_name  total
+    disease    276
+    no_show 110526
+
+2026-06-10 07:21:58,221 [INFO] 
+Q2 Distribusi outcome:
+     outcome_label  total
+No-Show / Negative  22454
+   Show / Positive  88348
+
+2026-06-10 07:21:58,286 [INFO] 
+Q3 Rata-rata usia per outcome:
+     outcome_label  avg_age
+No-Show / Negative    34.38
+   Show / Positive    37.80
+
+2026-06-10 07:21:58,342 [INFO] 
+Q4 Distribusi kelompok usia:
+     age_group_name  total
+        0-12 (Anak)  21036
+     13-17 (Remaja)   6343
+18-35 (Dewasa Muda)  25699
+     36-59 (Dewasa)  36496
+       60+ (Lansia)  21228
+
+2026-06-10 07:21:58,387 [INFO] 
+Q5 No-show rate per bulan:
+ appt_month  no_show_rate
+          4        0.1957
+          5        0.2079
+          6        0.1846
+
+2026-06-10 07:21:58,429 [INFO] 
+Q6 No-show rate hari kerja vs akhir pekan:
+ is_weekend  no_show_rate  total
+          0        0.2019 110487
+          1        0.2308     39
+
+2026-06-10 07:21:58,441 [INFO] 
+Q7 Distribusi penyakit (Disease dataset):
+        disease_name  total
+              Asthma     11
+              Stroke     10
+            Diabetes     10
+        Hypertension      9
+        Osteoporosis      8
+            Migraine      8
+           Pneumonia      7
+           Influenza      7
+Rheumatoid Arthritis      6
+      Osteoarthritis      6
+
+2026-06-10 07:21:58,508 [INFO] 
+Q8 Rata-rata wait_days per outcome:
+     outcome_label  avg_wait
+No-Show / Negative     15.42
+   Show / Positive      8.66
+
+2026-06-10 07:21:58,508 [INFO] === Semua transformasi ELT selesai. ===
+2026-06-10 07:21:58,517 [INFO] === PIPELINE ELT SELESAI ===

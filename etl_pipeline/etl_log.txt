@@ -1,0 +1,88 @@
+2026-06-10 07:20:42,291 [INFO] === MULAI PIPELINE ETL - Big Data Medical ===
+2026-06-10 07:20:42,292 [INFO] === EXTRACT SOURCE 1: No-Show Appointments ===
+2026-06-10 07:20:42,888 [INFO] [EXTRACT] {'source': 'No-Show Appointments', 'rows': 110527, 'columns': 14, 'col_names': ['PatientId', 'AppointmentID', 'Gender', 'ScheduledDay', 'AppointmentDay', 'Age', 'Neighbourhood', 'Scholarship', 'Hipertension', 'Diabetes', 'Alcoholism', 'Handcap', 'SMS_received', 'No-show'], 'file_size': '10811.6 KB', 'duration_s': 0.6}
+2026-06-10 07:20:42,888 [INFO] === EXTRACT SOURCE 2: Disease Symptoms ===
+2026-06-10 07:20:42,896 [INFO] [EXTRACT] {'source': 'Disease Symptoms', 'rows': 349, 'columns': 10, 'col_names': ['Disease', 'Fever', 'Cough', 'Fatigue', 'Difficulty Breathing', 'Age', 'Gender', 'Blood Pressure', 'Cholesterol Level', 'Outcome Variable'], 'file_size': '20.0 KB', 'duration_s': 0.01}
+2026-06-10 07:20:42,896 [INFO] -- Cleaning: No-Show Appointments --
+2026-06-10 07:20:43,126 [INFO] [CLEAN_NO_SHOW] {'before': 110527, 'after': 110521, 'removed': 6}
+2026-06-10 07:20:43,126 [INFO] -- Cleaning: Disease Symptoms --
+2026-06-10 07:20:43,131 [INFO] [CLEAN_DISEASE] {'before': 349, 'after': 300, 'removed': 49}
+2026-06-10 07:20:43,132 [INFO] -- Standardisasi: No-Show --
+2026-06-10 07:20:43,209 [INFO] [STANDARDIZE_NO_SHOW] {'rows': 110521}
+2026-06-10 07:20:43,209 [INFO] -- Standardisasi: Disease --
+2026-06-10 07:20:43,214 [INFO] [STANDARDIZE_DISEASE] {'rows': 300}
+2026-06-10 07:20:43,214 [INFO] -- Enrichment & Feature Engineering --
+2026-06-10 07:20:43,292 [INFO] [ENRICHMENT] {'no_show_rows': 110521, 'disease_rows': 300, 'merged_rows': 110821, 'total_cols': 17}
+2026-06-10 07:20:43,294 [INFO] -- Validasi Kualitas Data --
+2026-06-10 07:20:43,356 [WARNING]   VALIDASI -> Null check: 45 null di 'age'
+2026-06-10 07:20:43,356 [WARNING]   VALIDASI -> Distribusi source: {'no_show': 0.9973, 'disease': 0.0027}
+2026-06-10 07:20:43,357 [INFO] [VALIDATION] {'final_rows': 110821, 'final_cols': 17, 'issues': ["Null check: 45 null di 'age'", "Distribusi source: {'no_show': 0.9973, 'disease': 0.0027}"]}
+2026-06-10 07:20:44,140 [INFO] Data disimpan ke datalake.
+2026-06-10 07:20:44,140 [INFO] === LOAD: Data Warehouse (SQLite - Star Schema) ===
+2026-06-10 07:20:53,180 [INFO] [LOAD] {'database': 'C:\\Users\\Muhammad Aqsandy\\bigdata_final_project\\etl_pipeline\\..\\warehouse\\warehouse.db', 'rows_loaded': 110821, 'duration_s': 9.04, 'status': 'SUCCESS'}
+2026-06-10 07:20:53,181 [INFO] === 8 Query SQL Analitik ===
+2026-06-10 07:20:53,227 [INFO] 
+Q1 Total data per sumber:
+source_name  total
+    disease    300
+    no_show 110521
+
+2026-06-10 07:20:53,278 [INFO] 
+Q2 Distribusi outcome:
+     outcome_label  total
+No-Show / Negative  88374
+   Show / Positive  22447
+
+2026-06-10 07:20:53,342 [INFO] 
+Q3 Rata-rata usia per outcome:
+     outcome_label  avg_age
+No-Show / Negative    37.80
+   Show / Positive    34.35
+
+2026-06-10 07:20:53,399 [INFO] 
+Q4 Distribusi per kelompok usia:
+     age_group_name  total
+        0-12 (Anak)  21036
+     13-17 (Remaja)   6343
+18-35 (Dewasa Muda)  25753
+     36-59 (Dewasa)  36500
+       60+ (Lansia)  21189
+
+2026-06-10 07:20:53,447 [INFO] 
+Q5 No-show rate per bulan:
+ appt_month  no_show_rate
+        4.0        0.1957
+        5.0        0.2078
+        6.0        0.1846
+
+2026-06-10 07:20:53,514 [INFO] 
+Q6 Rata-rata comorbidity per kelompok usia:
+     age_group_name  avg_comorbidity
+        0-12 (Anak)             0.11
+     13-17 (Remaja)             0.19
+18-35 (Dewasa Muda)             0.21
+     36-59 (Dewasa)             0.53
+       60+ (Lansia)             0.87
+
+2026-06-10 07:20:53,572 [INFO] 
+Q7 No-show rate hari kerja vs akhir pekan:
+ is_weekend  no_show_rate  total
+        0.0        0.2019 110476
+        1.0        0.2308     39
+
+2026-06-10 07:20:53,586 [INFO] 
+Q8 Top 10 penyakit dari dataset Disease:
+        disease_name  total
+              Asthma     16
+        Osteoporosis     12
+              Stroke     11
+            Migraine     10
+        Hypertension     10
+            Diabetes     10
+           Pneumonia      7
+           Influenza      7
+          Bronchitis      7
+Rheumatoid Arthritis      6
+
+2026-06-10 07:20:53,592 [INFO] ETL selesai. Database: C:\Users\Muhammad Aqsandy\bigdata_final_project\etl_pipeline\..\warehouse\warehouse.db
+2026-06-10 07:20:53,634 [INFO] === PIPELINE ETL SELESAI ===

@@ -1,0 +1,11 @@
+stage,timestamp,source,rows,columns,duration,no_show_path,disease_path,no_show_rows,disease_rows,database,stg_no_show,stg_disease,status,rows_after_clean,fact_medical_elt_rows,checks_run
+EXTRACT_RAW,2026-06-10T07:21:55.434765,No-Show Appointments,110527.0,"['PatientId', 'AppointmentID', 'Gender', 'ScheduledDay', 'AppointmentDay', 'Age', 'Neighbourhood', 'Scholarship', 'Hipertension', 'Diabetes', 'Alcoholism', 'Handcap', 'SMS_received', 'No-show']",0.18,,,,,,,,,,,
+EXTRACT_RAW,2026-06-10T07:21:55.438784,Disease Symptoms,349.0,"['Disease', 'Fever', 'Cough', 'Fatigue', 'Difficulty Breathing', 'Age', 'Gender', 'Blood Pressure', 'Cholesterol Level', 'Outcome Variable']",0.0,,,,,,,,,,,
+LOAD_DATALAKE,2026-06-10T07:21:55.855731,,,,0.41,C:\Users\Muhammad Aqsandy\bigdata_final_project\elt_pipeline\..\datalake\raw_no_show\no_show_raw.csv,C:\Users\Muhammad Aqsandy\bigdata_final_project\elt_pipeline\..\datalake\raw_disease\disease_raw.csv,110527.0,349.0,,,,,,,
+LOAD_STAGING,2026-06-10T07:21:56.367616,,,,0.51,,,,,C:\Users\Muhammad Aqsandy\bigdata_final_project\elt_pipeline\..\warehouse\warehouse_elt.db,110527.0,349.0,,,,
+TRANSFORM_DIM,2026-06-10T07:21:56.485813,,,,,,,,,,,,"dim_source, dim_outcome, dim_age_group created",,,
+TRANSFORM_CLEAN_NO_SHOW,2026-06-10T07:21:57.015855,,,,,,,,,,,,,110526.0,,
+TRANSFORM_CLEAN_DISEASE,2026-06-10T07:21:57.041993,,,,,,,,,,,,,276.0,,
+TRANSFORM_ENRICHMENT,2026-06-10T07:21:57.593298,,,,,,,,,,,,enriched_no_show & enriched_disease created,,,
+TRANSFORM_FACT,2026-06-10T07:21:57.963396,,,,,,,,,,,,,,110802.0,
+TRANSFORM_VALIDATION,2026-06-10T07:21:58.128712,,,,,,,,,,,,,,,6.0
