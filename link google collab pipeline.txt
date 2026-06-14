@@ -1,0 +1,3 @@
+ETL: https://colab.research.google.com/drive/1NpKi1SHUkirIe8MWDdq281x2K8dl2RVD?usp=sharing
+
+ELT: https://colab.research.google.com/drive/12nGNfEZpuC86Nwge-znlyBDuV2JHamkY?usp=sharing
