@@ -1,0 +1,35 @@
+# Dataset (terlalu besar untuk GitHub)
+raw/
+*.csv
+*.db
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+.env
+venv/
+.venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+etl_pipeline/etl_log.txt
+etl_pipeline/etl_summary.csv
+elt_pipeline/elt_log.txt
+elt_pipeline/elt_summary.csv
+
+# Generated data
+datalake/
+dashboard_data/
+dashboard_data_elt/
+warehouse/
