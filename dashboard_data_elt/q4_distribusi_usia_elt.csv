@@ -1,0 +1,6 @@
+kelompok_usia,age_min,age_max,total,no_show_rate,pipeline
+0-12 (Anak),0,12,21036,0.2047,ELT
+13-17 (Remaja),13,17,6343,0.2664,ELT
+18-35 (Dewasa Muda),18,35,25699,0.239,ELT
+36-59 (Dewasa),36,59,36496,0.193,ELT
+60+ (Lansia),60,120,21228,0.1543,ELT

@@ -1,0 +1,3 @@
+jenis_hari,total,no_show_rate_persen,pipeline
+Hari Kerja,110487,20.19,ELT
+Akhir Pekan,39,23.08,ELT

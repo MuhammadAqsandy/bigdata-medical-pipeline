@@ -1,0 +1,6 @@
+kelompok_usia,age_min,rata_comorbidity,total
+0-12 (Anak),0,0.107,21036
+13-17 (Remaja),13,0.19,6343
+18-35 (Dewasa Muda),18,0.206,25623
+36-59 (Dewasa),36,0.527,36345
+60+ (Lansia),60,0.875,21168

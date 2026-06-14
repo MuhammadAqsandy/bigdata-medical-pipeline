@@ -1,0 +1,3 @@
+outcome,avg_wait,pipeline
+No-Show / Negative,15.42,ELT
+Show / Positive,8.66,ELT

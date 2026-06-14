@@ -1,0 +1,7 @@
+hari,urutan,total,no_show_rate_persen,pipeline
+Senin,1,22714,20.65,ELT
+Selasa,2,25640,20.09,ELT
+Rabu,3,25867,19.69,ELT
+Kamis,4,17247,19.35,ELT
+Jumat,5,19019,21.23,ELT
+Sabtu,6,39,23.08,ELT

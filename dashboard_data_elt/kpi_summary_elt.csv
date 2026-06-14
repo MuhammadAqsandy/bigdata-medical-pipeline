@@ -1,0 +1,2 @@
+total_pasien,no_show_rate,avg_usia,avg_wait_days,total_no_show,total_show,pipeline
+110802,0.2027,37.1,10.0,22460,88342,ELT

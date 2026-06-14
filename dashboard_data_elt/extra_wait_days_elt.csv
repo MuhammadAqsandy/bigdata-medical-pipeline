@@ -1,0 +1,5 @@
+kategori_tunggu,total,no_show_rate_persen,pipeline
+1-7 hari,70752,13.52,ELT
+8-30 hari,29396,31.72,ELT
+31-60 hari,8283,34.15,ELT
+> 60 hari,2095,28.45,ELT

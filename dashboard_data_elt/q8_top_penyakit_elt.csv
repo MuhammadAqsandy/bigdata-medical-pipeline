@@ -1,0 +1,16 @@
+penyakit,jumlah_kasus,pipeline
+Asthma,11,ELT
+Stroke,10,ELT
+Diabetes,10,ELT
+Hypertension,9,ELT
+Osteoporosis,8,ELT
+Migraine,8,ELT
+Pneumonia,7,ELT
+Influenza,7,ELT
+Rheumatoid Arthritis,6,ELT
+Osteoarthritis,6,ELT
+Liver Cancer,6,ELT
+Kidney Cancer,6,ELT
+Gastroenteritis,6,ELT
+Depression,6,ELT
+Common Cold,6,ELT

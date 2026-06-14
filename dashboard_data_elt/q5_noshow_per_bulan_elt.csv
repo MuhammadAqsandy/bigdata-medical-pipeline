@@ -1,0 +1,4 @@
+bulan,total,jumlah_no_show,no_show_rate_persen,pipeline
+4,3235,633,19.57,ELT
+5,80841,16804,20.79,ELT
+6,26450,4882,18.46,ELT
